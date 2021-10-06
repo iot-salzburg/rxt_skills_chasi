@@ -1,0 +1,67 @@
+{
+  "category": "SRFGLabor",
+  "idShort": "CHASIInstance",
+  "modelType": "AssetAdministrationShell",
+  "administration": {
+    "revision": "001",
+    "version": "V0.01"
+  },
+  "identification": {
+    "id": "http://robxtask.salzburgresearch.at/labor/CHASI#aas",
+    "idType": "IRI"
+  },
+  "asset": {
+    "modelType": "Asset",
+    "identification": {
+      "id": "http://robxtask.salzburgresearch.at/labor/CHASI",
+      "idType": "IRI"
+    },
+    "kind": "Type",
+    "description": [
+      {
+        "description": "i-Asset Labor - Mobiler Roboter",
+        "language": "de"
+      }
+    ]
+  },
+  "submodels": [
+{
+  "category": "SRFGLabor",
+  "idShort": "information",
+  "modelType": "Submodel",
+  "administration": {
+    "revision": "001",
+    "version": "V0.01"
+  },
+  "identification": {
+    "id": "http://iasset.salzburgresearch.at/labor/CHASI#info",
+    "idType": "IRI"
+  },
+  "kind": "Instance",
+  "submodelElements": [],
+  "description": [
+    {
+      "description": "#GetData #SetData #VoiceOutput #WaitForUserInput",
+      "language": "de"
+    }
+  ],
+  "parent": {
+    "modelType": "Reference",
+    "keys": [
+      {
+        "value": "http://iasset.salzburgresearch.at/labor/CHASI#aas",
+        "idType": "IRI",
+        "local": true,
+        "type": "AssetAdministrationShell"
+      }
+    ]
+  }
+}
+  ],
+  "description": [
+    {
+      "description": "i-Asset Labor - Mobiler Roboter",
+      "language": "de"
+    }
+  ]
+}
