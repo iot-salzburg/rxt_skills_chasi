@@ -7,44 +7,36 @@ import rxt_skills_chasi.msg
 
 # TODO import required CHASI libs here
 
-
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-# helper function: speak
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_speak(sentence):
-    
-    print ('TODO: NOT YET IMPLEMENTED!')
-    return True
     
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-# helper function: listen
+# helper function: listen for input
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_listen():
+def chasi_listen_for_input():
     
     print ('TODO: NOT YET IMPLEMENTED!')
     ret=b'TODO'
     return ret
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-# helper function: move head
+# helper function: move to location
 #------------------------------------------------------------------------------------------------------------------------------------------------------------ 
-def chasi_movehead(position):
+def chasi_moveTo(position):
  
     print ('TODO: NOT YET IMPLEMENTED!')
     return True
     
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-# helper function: speak
+# helper function: waitexternal
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_facedetection(inputFace):
+def chasi_waitexternal(inputToken):
     
     print ('TODO: NOT YET IMPLEMENTED!')
     return True
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-# helper function: speak
+# helper function: UI interaction
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_facialexpression(inputFace):
+def chasi_graphicalInteraction(inputFace):
 
     print ('TODO: NOT YET IMPLEMENTED!')
     return True
@@ -91,7 +83,7 @@ class WaitForUserInput(object):
         # start executing the action
         #success = fibonacci_example(self, success)
         success = True
-        returnMsg = chasi_listen()
+        returnMsg = chasi_listen_for_input()
           
         if success:
             self._result.returnMessage = returnMsg
@@ -122,7 +114,7 @@ class MoveToLocation(object):
         
         # start executing the action
         #success = fibonacci_example(self, success)
-        success = chasi_movehead(goal.location)
+        success = chasi_moveTo(goal.location)
           
         if success:
             self._result.isOK = success
@@ -153,7 +145,7 @@ class WaitForExternalEvent(object):
         
         # start executing the action
         #success = fibonacci_example(self, success)
-        success = chasi_facedetection(goal.inputText)
+        success = chasi_waitexternal(goal.inputText)
           
         if success:
             self._result.isOK = success
@@ -184,7 +176,7 @@ class GraphicalUserInteraction(object):
         
         # start executing the action
         #success = fibonacci_example(self, success)
-        success = chasi_facialexpression(goal.outputMessage)
+        success = chasi_graphicalInteraction(goal.outputMessage)
           
         if success:
             self._result.isOK = success
