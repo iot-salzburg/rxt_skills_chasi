@@ -1,0 +1,7 @@
+#Ignore all python compiled files
+*.pyc
+
+# Ignore all logging files, with one exception: .conf file
+*.log
+/logging
+!/logging/logging.conf
