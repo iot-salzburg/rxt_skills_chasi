@@ -7,26 +7,12 @@ import time
 import actionlib
 
 # Brings in the messages used by the chasi actions, including the
-# goal message and the result message of the task modules "WaitForUserInput" and "VoiceOutput"
 import rxt_skills_chasi.msg
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # client request implementations of CHASI action server functions
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_request_VoiceOutput():
-    
-    rospy.init_node('chasi_client_py') # Initializes a rospy node so that the SimpleActionClient can publish and subscribe over ROS
-
-    client = actionlib.SimpleActionClient('VoiceOutput', rxt_skills_chasi.msg.VoiceOutputAction) # Creates SimpleActionClient with VoiceOutputAction action type
-    client.wait_for_server() # Waits until the action server has started up and started listening for goals
-    goal = rxt_skills_chasi.msg.VoiceOutputGoal(outputMessage=b'Hallo ich bin ein sozialer Roboter') # Creates a goal to send to the action server
-    client.send_goal(goal) # Sends the goal to the action server
-    client.wait_for_result() # Waits for the server to finish performing the action
-    
-    return client.get_result() # Prints out the result (VoiceOutputResult) of executing the action
-
-
 def chasi_request_WaitForUserInput():
     
     rospy.init_node('chasi_client_py') # Initializes a rospy node so that the SimpleActionClient can publish and subscribe over ROS
@@ -109,14 +95,6 @@ def chasi_request_SetData():
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
     try:	
-        
-        # request VoiceOutput
-        result = chasi_request_VoiceOutput()
-        if result:
-            print ('----------------------------------')
-            print("Action was: VoiceOutput")
-            print("Result was: " + str(result.isOK))
-            print ('----------------------------------')
         
         # request WaitForUserInput
         result = chasi_request_WaitForUserInput()
