@@ -13,78 +13,78 @@ import rxt_skills_chasi.msg
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # client request implementations of CHASI action server functions
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_request_WaitForUserInput():
+def chasi_request_WaitForUserInput(msgBytes):
     
     rospy.init_node('chasi_client_py') # Initializes a rospy node so that the SimpleActionClient can publish and subscribe over ROS
 
     client = actionlib.SimpleActionClient('WaitForUserInput', rxt_skills_chasi.msg.WaitForUserInputAction) # Creates SimpleActionClient with WaitForUserInputAction action type
     client.wait_for_server() # Waits until the action server has started up and started listening for goals
-    goal = rxt_skills_chasi.msg.WaitForUserInputGoal(inputContent=b'void') # Creates a goal to send to the action server
+    goal = rxt_skills_chasi.msg.WaitForUserInputGoal(inputContent=msgBytes) # Creates a goal to send to the action server
     client.send_goal(goal) # Sends the goal to the action server
     client.wait_for_result() # Waits for the server to finish performing the action
     
     return client.get_result() # Prints out the result (WaitForUserInputResult) of executing the action
 
 
-def chasi_request_MoveToLocation():
+def chasi_request_MoveToLocation(msgBytes):
     
     rospy.init_node('chasi_client_py') # Initializes a rospy node so that the SimpleActionClient can publish and subscribe over ROS
 
     client = actionlib.SimpleActionClient('MoveToLocation', rxt_skills_chasi.msg.MoveToLocationAction) # Creates SimpleActionClient with MoveToLocationAction action type
     client.wait_for_server() # Waits until the action server has started up and started listening for goals
-    goal = rxt_skills_chasi.msg.MoveToLocationGoal(location=b'right') # Creates a goal to send to the action server
+    goal = rxt_skills_chasi.msg.MoveToLocationGoal(location=msgBytes) # Creates a goal to send to the action server
     client.send_goal(goal) # Sends the goal to the action server
     client.wait_for_result() # Waits for the server to finish performing the action
     
     return client.get_result() # Prints out the result (MoveToLocationResult) of executing the action
     
     
-def chasi_request_WaitForExternalEvent():
+def chasi_request_WaitForExternalEvent(msgBytes):
     
     rospy.init_node('chasi_client_py') # Initializes a rospy node so that the SimpleActionClient can publish and subscribe over ROS
 
     client = actionlib.SimpleActionClient('WaitForExternalEvent', rxt_skills_chasi.msg.WaitForExternalEventAction) # Creates SimpleActionClient WaitForExternalEventAction action type
     client.wait_for_server() # Waits until the action server has started up and started listening for goals
-    goal = rxt_skills_chasi.msg.WaitForExternalEventGoal(inputText=b'fear') # Creates a goal to send to the action server
+    goal = rxt_skills_chasi.msg.WaitForExternalEventGoal(inputText=msgBytes) # Creates a goal to send to the action server
     client.send_goal(goal) # Sends the goal to the action server
     client.wait_for_result() # Waits for the server to finish performing the action
     
     return client.get_result() # Prints out the result (WaitForExternalEventResult) of executing the action
     
     
-def chasi_request_GraphicalUserInteraction():
+def chasi_request_GraphicalUserInteraction(msgBytes):
     
     rospy.init_node('chasi_client_py') # Initializes a rospy node so that the SimpleActionClient can publish and subscribe over ROS
 
     client = actionlib.SimpleActionClient('GraphicalUserInteraction', rxt_skills_chasi.msg.GraphicalUserInteractionAction) # Creates SimpleActionClient with GraphicalUserInteractionAction action type
     client.wait_for_server() # Waits until the action server has started up and started listening for goals
-    goal = rxt_skills_chasi.msg.GraphicalUserInteractionGoal(outputMessage=b'happy') # Creates a goal to send to the action server
+    goal = rxt_skills_chasi.msg.GraphicalUserInteractionGoal(outputMessage=msgBytes) # Creates a goal to send to the action server
     client.send_goal(goal) # Sends the goal to the action server
     client.wait_for_result() # Waits for the server to finish performing the action
     
     return client.get_result() # Prints out the result (GraphicalUserInteractionResult) of executing the action
     
     
-def chasi_request_GetData():
+def chasi_request_GetData(msgBytes):
     
     rospy.init_node('chasi_client_py') # Initializes a rospy node so that the SimpleActionClient can publish and subscribe over ROS
 
     client = actionlib.SimpleActionClient('GetData', rxt_skills_chasi.msg.GetDataAction) # Creates SimpleActionClient with GetDataAction action type
     client.wait_for_server() # Waits until the action server has started up and started listening for goals
-    goal = rxt_skills_chasi.msg.GetDataGoal(inputData=b'robotName') # Creates a goal to send to the action server
+    goal = rxt_skills_chasi.msg.GetDataGoal(inputData=msgBytes) # Creates a goal to send to the action server
     client.send_goal(goal) # Sends the goal to the action server
     client.wait_for_result() # Waits for the server to finish performing the action
     
     return client.get_result() # Prints out the result (GetDataResult) of executing the action
 
 
-def chasi_request_SetData():
+def chasi_request_SetData(msgBytes):
     
     rospy.init_node('chasi_client_py') # Initializes a rospy node so that the SimpleActionClient can publish and subscribe over ROS
 
     client = actionlib.SimpleActionClient('SetData', rxt_skills_chasi.msg.SetDataAction) # Creates SimpleActionClient with SetDataAction action type
     client.wait_for_server() # Waits until the action server has started up and started listening for goals
-    goal = rxt_skills_chasi.msg.SetDataGoal(outputData=b'Mario') # Creates a goal to send to the action server
+    goal = rxt_skills_chasi.msg.SetDataGoal(outputData=msgBytes) # Creates a goal to send to the action server
     client.send_goal(goal) # Sends the goal to the action server
     client.wait_for_result() # Waits for the server to finish performing the action
     
@@ -97,7 +97,7 @@ if __name__ == '__main__':
     try:	
         
         # request WaitForUserInput
-        result = chasi_request_WaitForUserInput()
+        result = chasi_request_WaitForUserInput(b'void')
         if result:
             print ('----------------------------------')
             print("Action was: WaitForUserInput")
@@ -105,7 +105,7 @@ if __name__ == '__main__':
             print ('----------------------------------')
         
         # request MoveToLocation
-        result = chasi_request_MoveToLocation()
+        result = chasi_request_MoveToLocation(b'right')
         if result:
             print ('----------------------------------')
             print("Action was: MoveToLocation")
@@ -113,7 +113,7 @@ if __name__ == '__main__':
             print ('----------------------------------')
         
         # request WaitForExternalEvent
-        result = chasi_request_WaitForExternalEvent()
+        result = chasi_request_WaitForExternalEvent(b'fear')
         if result:
             print ('----------------------------------')
             print("Action was: WaitForExternalEvent")
@@ -121,7 +121,7 @@ if __name__ == '__main__':
             print ('----------------------------------')
         
         # request GraphicalUserInteraction
-        result = chasi_request_GraphicalUserInteraction()
+        result = chasi_request_GraphicalUserInteraction(b'happy')
         if result:
             print ('----------------------------------')
             print("Action was: GraphicalUserInteraction")
@@ -129,7 +129,7 @@ if __name__ == '__main__':
             print ('----------------------------------')
         
         # request GetData
-        result = chasi_request_GetData()
+        result = chasi_request_GetData(b'robotName')
         if result:
             print ('----------------------------------')
             print("Action was: GetData")
@@ -137,7 +137,7 @@ if __name__ == '__main__':
             print ('----------------------------------')
         
         # request SetData
-        result = chasi_request_SetData()
+        result = chasi_request_SetData(b'Mario')
         if result:
             print ('----------------------------------')
             print("Action was: SetData")
