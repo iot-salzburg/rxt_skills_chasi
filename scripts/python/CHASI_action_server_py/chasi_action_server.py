@@ -4,41 +4,127 @@ import rospy
 import actionlib
 import rxt_skills_chasi.msg
 
+import tf.transformations
+from geometry_msgs.msg import PoseStamped
 
-# TODO import required CHASI libs here
+#------------------------------------------------------------------------------------------------------------------------------------------------------------
+# class for listening position
+#------------------------------------------------------------------------------------------------------------------------------------------------------------
+class Position_Listener(object):
 
-    
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-# helper function: listen for input
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_listen_for_input():
-    
-    print ('TODO: NOT YET IMPLEMENTED!')
-    ret=b'TODO'
-    return ret
+    def __init__(self):
+        self.flag = True
+        rospy.Subscriber('/move_base_simple/goal', PoseStamped, self.listener_callback)
+
+    def listener_callback(self, msg):
+
+        rospy.loginfo("Received at goal message!")
+        rospy.loginfo("Timestamp: " + str(msg.header.stamp))
+        rospy.loginfo("frame_id: " + str(msg.header.frame_id))
+
+        # Copying for simplicity
+        position = msg.pose.position
+        quat = msg.pose.orientation
+        rospy.loginfo("Point Position: [ %f, %f, %f ]"%(position.x, position.y, position.z))
+        rospy.loginfo("Quat Orientation: [ %f, %f, %f, %f]"%(quat.x, quat.y, quat.z, quat.w))
+
+        # Also print Roll, Pitch, Yaw
+        euler = tf.transformations.euler_from_quaternion([quat.x, quat.y, quat.z, quat.w])
+        rospy.loginfo("Euler Angles: %s"%str(euler))  
+
+        # terminate listening...(only first package read...)
+        self.flag = False
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # helper function: move to location
 #------------------------------------------------------------------------------------------------------------------------------------------------------------ 
 def chasi_moveTo(position):
  
-    print ('TODO: NOT YET IMPLEMENTED!')
+    # Tutorials:
+    # https://www.oreilly.com/library/view/ros-programming-building/9781788627436/192de5c9-e5bd-40b3-a75a-2990bdfa7caf.xhtml
+    # https://answers.ros.org/question/306582/unable-to-publish-posestamped-message/
+
+    goal_publisher = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=5)
+    goal = PoseStamped()
+
+    goal.header.seq = 1
+    goal.header.stamp = rospy.Time.now()
+    goal.header.frame_id = "map"
+
+    goal.pose.position.x = 1.0
+    goal.pose.position.y = 2.0
+    goal.pose.position.z = 0.0
+    goal.pose.orientation.x = 0.0
+    goal.pose.orientation.y = 0.0
+    goal.pose.orientation.z = 0.0
+    goal.pose.orientation.w = 1.0
+
+    time.sleep(5)
+    goal_publisher.publish(goal)
+
     return True
+    
+#------------------------------------------------------------------------------------------------------------------------------------------------------------
+# helper function: listen for input
+#------------------------------------------------------------------------------------------------------------------------------------------------------------
+def chasi_listen_for_input(input):
+    
+    try:   
+        if(input.decode("utf-8") == 'rviz'):
+            rospy.loginfo('Trying to listen from topic: /move_base_simple/goal')
+            list = Position_Listener()
+
+            while list.flag: # sleep to block ActionEnd until we received "Stopped"-message
+                rospy.sleep(1) 
+            
+        else:
+            return b'NOT OK' 
+
+    except rospy.ROSInterruptException:
+        pass
+
+    return b'OK' 
     
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # helper function: waitexternal
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_waitexternal(inputToken):
+def chasi_waitexternal(input):
     
-    print ('TODO: NOT YET IMPLEMENTED!')
+    try:   
+        if(input.decode("utf-8") == 'rviz'):
+            rospy.loginfo('Trying to listen from topic: /move_base_simple/goal')
+            list = Position_Listener()
+
+            while list.flag: # sleep to block ActionEnd until we received "Stopped"-message
+                rospy.sleep(1) 
+            
+        else:
+            return False 
+
+    except rospy.ROSInterruptException:
+        pass
+    
     return True
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # helper function: UI interaction
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_graphicalInteraction(inputFace):
+def chasi_graphicalInteraction(input):
 
-    print ('TODO: NOT YET IMPLEMENTED!')
+    try:   
+        if(input.decode("utf-8") == 'rviz'):
+            rospy.loginfo('Trying to listen from topic: /move_base_simple/goal')
+            list = Position_Listener()
+
+            while list.flag: # sleep to block ActionEnd until we received "Stopped"-message
+                rospy.sleep(1) 
+            
+        else:
+            return False 
+
+    except rospy.ROSInterruptException:
+        pass
+
     return True
     
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,10 +139,9 @@ def chasi_write_setting(setting, value):
 # helper function: read a setting
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 def chasi_read_setting(setting):
-    
+
     print ('TODO: NOT YET IMPLEMENTED!')
-    ret=b'TODO'
-    return ret
+    return b'NO DATA FOUND'
 			
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # WaitForUserInput
@@ -83,7 +168,7 @@ class WaitForUserInput(object):
         # start executing the action
         #success = fibonacci_example(self, success)
         success = True
-        returnMsg = chasi_listen_for_input()
+        returnMsg = chasi_listen_for_input(goal.inputContent)
           
         if success:
             self._result.returnMessage = returnMsg

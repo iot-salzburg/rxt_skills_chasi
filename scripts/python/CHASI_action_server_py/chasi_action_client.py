@@ -96,24 +96,24 @@ def chasi_request_SetData(msgBytes):
 if __name__ == '__main__':
     try:	
         
+        # request MoveToLocation
+        result = chasi_request_MoveToLocation(b'parkingslot')
+        if result:
+            print ('----------------------------------')
+            print("Action was: MoveToLocation")
+            print("Result was: " + str(result.isOK))
+            print ('----------------------------------')
+
         # request WaitForUserInput
-        result = chasi_request_WaitForUserInput(b'void')
+        result = chasi_request_WaitForUserInput(b'rviz')
         if result:
             print ('----------------------------------')
             print("Action was: WaitForUserInput")
             print("Result was:", ', '.join([str(n) for n in result.returnMessage.decode("utf-8")]))
             print ('----------------------------------')
         
-        # request MoveToLocation
-        result = chasi_request_MoveToLocation(b'right')
-        if result:
-            print ('----------------------------------')
-            print("Action was: MoveToLocation")
-            print("Result was: " + str(result.isOK))
-            print ('----------------------------------')
-        
         # request WaitForExternalEvent
-        result = chasi_request_WaitForExternalEvent(b'fear')
+        result = chasi_request_WaitForExternalEvent(b'rviz')
         if result:
             print ('----------------------------------')
             print("Action was: WaitForExternalEvent")
@@ -121,7 +121,7 @@ if __name__ == '__main__':
             print ('----------------------------------')
         
         # request GraphicalUserInteraction
-        result = chasi_request_GraphicalUserInteraction(b'happy')
+        result = chasi_request_GraphicalUserInteraction(b'rviz')
         if result:
             print ('----------------------------------')
             print("Action was: GraphicalUserInteraction")
@@ -129,7 +129,7 @@ if __name__ == '__main__':
             print ('----------------------------------')
         
         # request GetData
-        result = chasi_request_GetData(b'robotName')
+        result = chasi_request_GetData(b'position')
         if result:
             print ('----------------------------------')
             print("Action was: GetData")
@@ -137,7 +137,7 @@ if __name__ == '__main__':
             print ('----------------------------------')
         
         # request SetData
-        result = chasi_request_SetData(b'Mario')
+        result = chasi_request_SetData(b'position')
         if result:
             print ('----------------------------------')
             print("Action was: SetData")
