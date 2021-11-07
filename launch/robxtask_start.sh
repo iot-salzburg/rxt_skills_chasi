@@ -4,7 +4,7 @@
 # start raspberry pi connection
 #gnome-terminal -- sshpass -p "ubuntu" ssh ubuntu@192.168.5.3 "roslaunch arti_chasi_mark3 arti_chasi_mark3_upstart_with_teleop.launch"
 gnome-terminal -- ssh ubuntu@192.168.5.3 "roslaunch arti_chasi_mark3 arti_chasi_mark3_upstart_with_teleop.launch"
-sleep 50
+sleep 15
 
 
 # start the rviz tool with loaded map and properties
