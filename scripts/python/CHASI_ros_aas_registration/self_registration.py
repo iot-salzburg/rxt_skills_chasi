@@ -3,30 +3,21 @@
 import requests
 import json
 
-# register one full AAS in asset-directory-controller under "/directory/aas" or one submodel under "/directory/submodel"
-# see iAsset project: https://iasset.salzburgresearch.at/registry-service/swagger-ui.html#/
+# register this device on ROBxTASK cloud platform with skill implementation documentation
+# INFO: needs Basic Authentication: USER: "devr" + PW: "DevReg!robXtask"
+registration_endpoint = 'https://robxtask.salzburgresearch.at/devreg/v1/devices' 
 
 #---------------------------------------------------------------------------------------------
-# loadAASType
+# loadRegistrationFile
 #---------------------------------------------------------------------------------------------
-def loadAASType():
+def loadRegistrationFile():
 
-    with open('/home/chasi/ros_workspace/src/rxt_skills_chasi/scripts/python/CHASI_ros_aas_registration/CHASI_type.json', 'r') as dt_file:
+    with open('/home/chasi/ros_workspace/src/rxt_skills_chasi/scripts/python/CHASI_ros_aas_registration/CHASI_registration_file.json', 'r') as dt_file:
         dt_data = json.load(dt_file) 
         # TODO
     
     return dt_data
 
-#---------------------------------------------------------------------------------------------
-# loadAASInstance
-#---------------------------------------------------------------------------------------------
-def loadAASInstance():
-    
-    with open('/home/chasi/ros_workspace/src/rxt_skills_chasi/scripts/python/CHASI_ros_aas_registration/CHASI_instance.json', 'r') as dt_file:
-        dt_data = json.load(dt_file) 
-        # TODO
-        
-    return dt_data
 
 # -------------------------------------------------------------------------------------------
 # uploadAAS (upload full settings with all entries)
@@ -35,7 +26,7 @@ def uploadAAS(aas):
     
     try:     
         #r = requests.post('https://power2dm.salzburgresearch.at/robogen/DataBase/UploadJSON_MySettings', timeout=5, verify=False, json=aas)
-        r = requests.put(settings_endpoint, timeout=5, verify=False, json=aas)
+        r = requests.put(registration_endpoint, timeout=5, verify=False, json=aas)
         headers = {'Content-type': 'application/json'}      
             
         if r.ok:
@@ -51,13 +42,9 @@ def uploadAAS(aas):
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # main function
 #------------------------------------------------------------------------------------------------------------------------------------------------------------	 
-if __name__ == '__main__':
-    
-    aas_type = loadAASType()
-    aas_instance = loadAASInstance()
-    uploadAAS(aas_type)
-    uploadAAS(aas_instance)
-    
+#if __name__ == '__main__':   
+#    registration_file = loadRegistrationFile()
+#    uploadAAS(registration_file)
     
     
     
