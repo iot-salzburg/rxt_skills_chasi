@@ -1,0 +1,56 @@
+{
+  "DeviceID": "30:9c:23:84:fe:51",
+  "DeviceName": "Franka Emika Panda",
+  "DeviceDescription": "Arm robot that can grab various different cups from fixed storage",
+  "Skills": [
+  {
+    "SkillName": "GetData",
+    "SkillVersion": "V01",
+    "SkillDescription": "This skill can be used to read from the ROS topic /ros_opcua_response. It will return the current state of the arm robot."
+  },
+  {
+    "SkillName": "SetData",
+    "SkillVersion": "V01",
+    "SkillDescription": "This skill can be used to write to the ROS topic /ros_opcua_order. You may pass a parameter that will be published to the topic directly."
+  },
+  {
+    "SkillName": "MoveToLocation",
+    "SkillVersion": "V01",
+    "SkillDescription": "Move the robot arm in a predifinded direction by passing one of the following directions as a parameter: (1) pack pose, (2) cups init, (3) cart init or (4) final cart position." 
+  },
+  {
+    "SkillName": "GrabObject",
+    "SkillVersion": "V01",
+    "SkillDescription": "Panda robot will automatically drive to the defined storage and grab the cup there. Define which storage to drive to by passing a number as a parameter between 1 and 9."
+  },
+  {
+    "SkillName": "PutObject",
+    "SkillVersion": "V01",
+    "SkillDescription": "Panda robot will automatically drive to the defined ARTI parking position and release the cup there."
+  },
+  {
+    "SkillName": "WaitForUserInput",
+    "SkillVersion": "V01",
+    "SkillDescription": "This skill will wait for user switching into teaching mode (white mode) using the bazar button. Once done teaching switch back to normal mode (blue mode) to finish the action."
+  },
+  {
+    "SkillName": "WaitForExternalEvent",
+    "SkillVersion": "V01",
+    "SkillDescription": "This skill will wait for user switching into teaching mode (white mode) using the bazar button. Once done teaching switch back to normal mode (blue mode) to finish the action."
+  }
+  ],
+  "ConfigParams": [
+    {
+	  "Key" : "ROS Master URI",
+	  "Value" : "192.168.48.41:11311"
+	},
+    {
+	  "Key" : "Internal Network Device-IP",
+	  "Value" : "192.168.48.41"
+	},
+	{
+	  "Key" : "Internal Network Hostname",
+	  "Value" : "il041"
+	}
+  ]
+}
