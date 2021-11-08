@@ -1,5 +1,5 @@
 {
-  "DeviceID": "30:9c:23:84:fe:51",
+  "DeviceID": "TODO",
   "DeviceName": "ARTI Chasi",
   "DeviceDescription": "Mobile robot with autonomous driving capabilities.",
   "Skills": [
@@ -41,11 +41,11 @@
 	},
     {
 	  "Key" : "Internal Network Device-IP",
-	  "Value" : "192.168.48.41"
+	  "Value" : "192.168.5.5"
 	},
 	{
 	  "Key" : "Internal Network Hostname",
-	  "Value" : "il041"
+	  "Value" : "TODO"
 	}
   ]
 }
