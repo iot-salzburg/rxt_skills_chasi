@@ -34,6 +34,9 @@ class Position_Listener(object):
 
         # terminate listening...(only first package read...)
         self.flag = False
+        self.positionSTR = "x=" + str(msg.pose.position.x) + ", y=" + str(msg.pose.position.y) + ", z="  + str(msg.pose.position.z)
+        self.orientationSTR = "x=" + str(msg.pose.orientation.x) + ", y=" + str(msg.pose.orientation.y) + ", z="  + str(msg.pose.orientation.z) + ", w=" + str(msg.pose.orientation.w)
+        print(positionSTR)
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # helper function: move to location
@@ -44,23 +47,35 @@ def chasi_moveTo(position):
     # https://www.oreilly.com/library/view/ros-programming-building/9781788627436/192de5c9-e5bd-40b3-a75a-2990bdfa7caf.xhtml
     # https://answers.ros.org/question/306582/unable-to-publish-posestamped-message/
 
-    goal_publisher = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=5)
-    goal = PoseStamped()
+    #goal_publisher = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=5)
+    #goal = PoseStamped()
+    #goal.header.seq = 1
+    #goal.header.stamp = rospy.Time.now()
+    #goal.header.frame_id = "map"
+    #goal.pose.position.x = 1.0
+    #goal.pose.position.y = 2.0
+    #goal.pose.position.z = 0.0
+    #goal.pose.orientation.x = 0.0
+    #goal.pose.orientation.y = 0.0
+    #goal.pose.orientation.z = 0.0
+    #goal.pose.orientation.w = 1.0
+    #time.sleep(5)
+    #goal_publisher.publish(goal)
 
-    goal.header.seq = 1
-    goal.header.stamp = rospy.Time.now()
-    goal.header.frame_id = "map"
 
-    goal.pose.position.x = 1.0
-    goal.pose.position.y = 2.0
-    goal.pose.position.z = 0.0
-    goal.pose.orientation.x = 0.0
-    goal.pose.orientation.y = 0.0
-    goal.pose.orientation.z = 0.0
-    goal.pose.orientation.w = 1.0
+    # set command to move to position
+    artiparking_position = "position: { x: 2.06074738503, y: 2.98369121552 }"
+    artiparkin_orientation = "orientation: { x: 0, y: 0, z: 0.222298112697, w: 0.974978742892 }"
 
-    time.sleep(5)
-    goal_publisher.publish(goal)
+    command = "rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{ header: { frame_id:  \"/map\"}, pose: { " + artiparking_position + ", " + artiparkin_orientation + " } }'"
+    os.system(command)
+
+    # listen for motion / get position
+    rospy.loginfo('Trying to listen from topic: /move_base_simple/goal')
+    list = Position_Listener()
+
+    while list.flag: # sleep to block ActionEnd until we received "Stopped"-message
+        rospy.sleep(1) 
 
     return True
     
@@ -140,7 +155,20 @@ def chasi_write_setting(setting, value):
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 def chasi_read_setting(setting):
 
-    print ('TODO: NOT YET IMPLEMENTED!')
+    try:   
+        if(setting.decode("utf-8") == 'position'):
+            rospy.loginfo('Trying to listen from topic: /move_base_simple/goal')
+            list = Position_Listener()
+
+            while list.flag: # sleep to block ActionEnd until we received "Stopped"-message
+                rospy.sleep(1) 
+            
+            returnSTR = "position: [" + list.positionSTR + "] orientation: [" + list.orientationSTR + "]"
+            return returnSTR.encode('utf-8')
+
+    except rospy.ROSInterruptException:
+        pass
+
     return b'NO DATA FOUND'
 			
 #------------------------------------------------------------------------------------------------------------------------------------------------------------

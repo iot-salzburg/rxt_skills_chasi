@@ -8,7 +8,7 @@ sleep 15
 
 
 # start the rviz tool with loaded map and properties
-gnome-terminal -- roslaunch rxt_skills_chasi Chasi.launch
+gnome-terminal -- roslaunch arti_navigation move_base.launch
 sleep 5
 
 
