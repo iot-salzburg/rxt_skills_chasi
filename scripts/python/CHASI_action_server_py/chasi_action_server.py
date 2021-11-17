@@ -65,17 +65,17 @@ def chasi_moveTo(position):
 
     # set command to move to position
     artiparking_position = "position: { x: 2.06074738503, y: 2.98369121552 }"
-    artiparkin_orientation = "orientation: { x: 0, y: 0, z: 0.222298112697, w: 0.974978742892 }"
+    artiparking_orientation = "orientation: { x: 0, y: 0, z: 0.222298112697, w: 0.974978742892 }"
 
-    command = "rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{ header: { frame_id:  \"/map\"}, pose: { " + artiparking_position + ", " + artiparkin_orientation + " } }'"
+    command = "rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{ header: { frame_id:  \"/map\"}, pose: { " + artiparking_position + ", " + artiparking_orientation + " } }'"
     os.system(command)
 
     # listen for motion / get position
-    rospy.loginfo('Trying to listen from topic: /move_base_simple/goal')
-    list = Position_Listener()
+    #rospy.loginfo('Trying to listen from topic: /move_base_simple/goal')
+    #list = Position_Listener()
 
-    while list.flag: # sleep to block ActionEnd until we received "Stopped"-message
-        rospy.sleep(1) 
+    #while list.flag: # sleep to block ActionEnd until we received "Stopped"-message
+    #    rospy.sleep(1) 
 
     return True
     

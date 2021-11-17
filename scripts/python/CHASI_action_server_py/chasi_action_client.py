@@ -39,7 +39,7 @@ if __name__ == '__main__':
 	print ('INVOKING RXT_SKILL: WaitForUserInput')
         result = send_ROSActionRequest_WithGoal('WaitForUserInput', rxt_skills_chasi.msg.WaitForUserInputAction, rxt_skills_chasi.msg.WaitForUserInputGoal(inputContent=b'rviz'))
         if result:
-            print("Result was:", ', '.join([str(n) for n in result.returnMessage.decode("utf-8")]))
+            print("Result was:", ''.join([str(n) for n in result.returnMessage.decode("utf-8")]))
         print ('----------------------------------')
         
         # request WaitForExternalEvent
@@ -63,7 +63,7 @@ if __name__ == '__main__':
 	print ('INVOKING RXT_SKILL: GetData')
         result = send_ROSActionRequest_WithGoal('GetData', rxt_skills_chasi.msg.GetDataAction, rxt_skills_chasi.msg.GetDataGoal(inputData=b'position'))
         if result:
-            print("Result was:", ', '.join([str(n) for n in result.data.decode("utf-8")]))
+            print("Result was:", ''.join([str(n) for n in result.data.decode("utf-8")]))
         print ('----------------------------------')
         
         # request SetData
