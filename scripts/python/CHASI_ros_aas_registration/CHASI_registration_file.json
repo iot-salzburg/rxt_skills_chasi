@@ -1,5 +1,5 @@
 {
-  "DeviceID": "TODO",
+  "DeviceID": "00:e0:4c:68:02:30",
   "DeviceName": "ARTI Chasi",
   "DeviceDescription": "Mobile robot with autonomous driving capabilities.",
   "Skills": [
@@ -45,7 +45,7 @@
 	},
 	{
 	  "Key" : "Internal Network Hostname",
-	  "Value" : "TODO"
+	  "Value" : "rosbook"
 	}
   ]
 }
