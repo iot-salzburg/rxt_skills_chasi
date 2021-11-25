@@ -7,6 +7,10 @@ import rxt_skills_chasi.msg
 import tf.transformations
 from geometry_msgs.msg import PoseStamped
 
+# self registration
+from self_registration import *
+
+
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # class for listening position
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -364,6 +368,11 @@ class SetData(object):
 #------------------------------------------------------------------------------------------------------------------------------------------------------------	 
 if __name__ == '__main__':
     
+    # self registration
+    registration_file = loadRegistrationFile()
+    uploadAAS(registration_file)
+    
+    # init server
     rospy.init_node('chasi')
     server1 = WaitForUserInput('WaitForUserInput')
     server2 = MoveToLocation('MoveToLocation')
