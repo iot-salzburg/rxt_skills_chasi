@@ -12,7 +12,7 @@ registration_endpoint = 'https://robxtask.salzburgresearch.at/devreg/v1/devices'
 #---------------------------------------------------------------------------------------------
 def loadRegistrationFile():
 
-    with open('/home/chasi/ros_workspace/src/rxt_skills_chasi/scripts/python/CHASI_ros_aas_registration/CHASI_registration_file.json', 'r') as dt_file:
+    with open('/home/rosdev/arti_ws/src/rxt_skills_chasi/scripts/python/CHASI_ros_aas_registration/CHASI_registration_file.json', 'r') as dt_file:
         dt_data = json.load(dt_file) 
         # TODO
     
