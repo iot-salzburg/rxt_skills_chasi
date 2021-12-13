@@ -25,7 +25,7 @@ def uploadAAS(aas):
     
     try:
         headers = {'Content-type': 'application/json'}    
-        r_get = requests.get(registration_endpoint + '00:e0:4c:68:02:30', timeout=5, json=aas, headers=headers, auth=('devr', 'DevReg\!robXtask'))
+        r_get = requests.get(registration_endpoint + '/00:e0:4c:68:02:30', timeout=5, json=aas, headers=headers, auth=('devr', 'DevReg\!robXtask'))
 
         if r_get.ok:
             r_add = requests.put(registration_endpoint, timeout=5, json=aas, headers=headers, auth=('devr', 'DevReg\!robXtask')) 
