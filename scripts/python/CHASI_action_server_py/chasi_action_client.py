@@ -27,48 +27,48 @@ if __name__ == '__main__':
     try:	
         
         # request MoveToLocation
-	print ('----------------------------------')
-	print ('INVOKING RXT_SKILL: MoveToLocation')
+        print ('----------------------------------')
+        print ('INVOKING RXT_SKILL: MoveToLocation')
         result = send_ROSActionRequest_WithGoal('MoveToLocation', rxt_skills_chasi.msg.MoveToLocationAction, rxt_skills_chasi.msg.MoveToLocationGoal(location=b'parkingslot'))
         if result:
             print("Result was: " + str(result.isOK))
         print ('----------------------------------')
 
         # request WaitForUserInput
-	print ('----------------------------------')
-	print ('INVOKING RXT_SKILL: WaitForUserInput')
+        print ('----------------------------------')
+        print ('INVOKING RXT_SKILL: WaitForUserInput')
         result = send_ROSActionRequest_WithGoal('WaitForUserInput', rxt_skills_chasi.msg.WaitForUserInputAction, rxt_skills_chasi.msg.WaitForUserInputGoal(inputContent=b'rviz'))
         if result:
             print("Result was:", ''.join([str(n) for n in result.returnMessage.decode("utf-8")]))
         print ('----------------------------------')
         
         # request WaitForExternalEvent
-	print ('----------------------------------')
-	print ('INVOKING RXT_SKILL: WaitForExternalEvent')
+        print ('----------------------------------')
+        print ('INVOKING RXT_SKILL: WaitForExternalEvent')
         result = send_ROSActionRequest_WithGoal('WaitForExternalEvent', rxt_skills_chasi.msg.WaitForExternalEventAction, rxt_skills_chasi.msg.WaitForExternalEventGoal(inputText=b'rviz'))
         if result:
             print("Result was: " + str(result.isOK))
         print ('----------------------------------')
         
         # request GraphicalUserInteraction
-	print ('----------------------------------')
-	print ('INVOKING RXT_SKILL: GraphicalUserInteraction')
+        print ('----------------------------------')
+        print ('INVOKING RXT_SKILL: GraphicalUserInteraction')
         result = send_ROSActionRequest_WithGoal('GraphicalUserInteraction', rxt_skills_chasi.msg.GraphicalUserInteractionAction, rxt_skills_chasi.msg.GraphicalUserInteractionGoal(outputMessage=b'rviz'))
         if result:
             print("Result was: " + str(result.isOK))
         print ('----------------------------------')
         
         # request GetData
-	print ('----------------------------------')
-	print ('INVOKING RXT_SKILL: GetData')
+        print ('----------------------------------')
+        print ('INVOKING RXT_SKILL: GetData')
         result = send_ROSActionRequest_WithGoal('GetData', rxt_skills_chasi.msg.GetDataAction, rxt_skills_chasi.msg.GetDataGoal(inputData=b'position'))
         if result:
             print("Result was:", ''.join([str(n) for n in result.data.decode("utf-8")]))
         print ('----------------------------------')
         
         # request SetData
-	print ('----------------------------------')
-	print ('INVOKING RXT_SKILL: SetData')
+        print ('----------------------------------')
+        print ('INVOKING RXT_SKILL: SetData')
         result = send_ROSActionRequest_WithGoal('SetData', rxt_skills_chasi.msg.SetDataAction, rxt_skills_chasi.msg.SetDataGoal(outputData=b'position'))
         if result:
             print("Result was: " + str(result.isOK))
