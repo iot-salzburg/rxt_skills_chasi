@@ -6,32 +6,98 @@
   {
     "SkillName": "GetData",
     "SkillVersion": "V01",
-    "SkillDescription": "Not yet implemented."
+    "SkillDescription": "Not yet implemented.",
+    "SkillSlots": [
+      {
+      "SlotName": "inputData",
+      "SlotType": "string",
+      "SlotValues": []
+      }
+	],
+    "ReturnResult": {
+      "ReturnResultName": "data",
+      "ReturnResultType": "string"
+    }
   },
   {
     "SkillName": "SetData",
     "SkillVersion": "V01",
-    "SkillDescription": "Not yet implemented."
+    "SkillDescription": "Not yet implemented.",
+    "SkillSlots": [
+      {
+      "SlotName": "outputData",
+      "SlotType": "string",
+      "SlotValues": []
+      }
+	],
+    "ReturnResult": {
+      "ReturnResultName": "isOK",
+      "ReturnResultType": "bool"
+    }
   },
   {
     "SkillName": "MoveToLocation",
     "SkillVersion": "V01",
-    "SkillDescription": "Move the mobile robot to a pre-defined position: (1) parking slot, (2) patient room." 
+    "SkillDescription": "Move the mobile robot to a pre-defined position: (1) parking slot, (2) patient room.",
+    "SkillSlots": [
+      {
+      "SlotName": "location",
+      "SlotType": "enum",
+      "SlotValues": ["parking slot", "patient room"]
+      }
+	],
+    "ReturnResult": {
+      "ReturnResultName": "isOK",
+      "ReturnResultType": "bool"
+    }
   },
   {
     "SkillName": "GraphicalUserInteraction",
     "SkillVersion": "V01",
-    "SkillDescription": "Waiting for user interaction in Rviz visualisation tool. Set a 2D Goal position on loaded map in rviz using the UI button."
+    "SkillDescription": "Waiting for user interaction in Rviz visualisation tool. Set a 2D Goal position on loaded map in rviz using the UI button.",
+    "SkillSlots": [
+      {
+      "SlotName": "outputMessage",
+      "SlotType": "string",
+      "SlotValues": []
+      }
+	],
+    "ReturnResult": {
+      "ReturnResultName": "isOK",
+      "ReturnResultType": "bool"
+    }
   },
   {
     "SkillName": "WaitForUserInput",
     "SkillVersion": "V01",
-    "SkillDescription": "Waiting for user interaction in Rviz visualisation tool. Set a 2D Goal position on loaded map in rviz using the UI button."
+    "SkillDescription": "Waiting for user interaction in Rviz visualisation tool. Set a 2D Goal position on loaded map in rviz using the UI button.",
+    "SkillSlots": [
+      {
+      "SlotName": "inputContent",
+      "SlotType": "string",
+      "SlotValues": []
+      }
+	],
+    "ReturnResult": {
+      "ReturnResultName": "returnMessage",
+      "ReturnResultType": "string"
+    }
   },
   {
     "SkillName": "WaitForExternalEvent",
     "SkillVersion": "V01",
-    "SkillDescription": "Waiting for user interaction in Rviz visualisation tool. Set a 2D Goal position on loaded map in rviz using the UI button."
+    "SkillDescription": "Waiting for user interaction in Rviz visualisation tool. Set a 2D Goal position on loaded map in rviz using the UI button.",
+    "SkillSlots": [
+      {
+      "SlotName": "inputText",
+      "SlotType": "string",
+      "SlotValues": []
+      }
+	],
+    "ReturnResult": {
+      "ReturnResultName": "isOK",
+      "ReturnResultType": "bool"
+    }
   }
   ],
   "ConfigParams": [
