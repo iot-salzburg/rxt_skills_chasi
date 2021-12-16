@@ -1,6 +1,7 @@
 {
   "DeviceID": "00:e0:4c:68:02:30",
   "DeviceName": "ARTI Chasi",
+  "DeviceOwner": "81",
   "DeviceDescription": "Mobile robot with autonomous driving capabilities.",
   "Skills": [
   {
@@ -10,13 +11,13 @@
     "SkillSlots": [
       {
       "SlotName": "inputData",
-      "SlotType": "string",
+      "SlotType": "String",
       "SlotValues": []
       }
 	],
     "ReturnResult": {
       "ReturnResultName": "data",
-      "ReturnResultType": "string"
+      "ReturnResultType": "String"
     }
   },
   {
@@ -26,13 +27,13 @@
     "SkillSlots": [
       {
       "SlotName": "outputData",
-      "SlotType": "string",
+      "SlotType": "String",
       "SlotValues": []
       }
 	],
     "ReturnResult": {
       "ReturnResultName": "isOK",
-      "ReturnResultType": "bool"
+      "ReturnResultType": "Bool"
     }
   },
   {
@@ -42,13 +43,13 @@
     "SkillSlots": [
       {
       "SlotName": "location",
-      "SlotType": "enum",
+      "SlotType": "Enum",
       "SlotValues": ["parking slot", "patient room"]
       }
 	],
     "ReturnResult": {
       "ReturnResultName": "isOK",
-      "ReturnResultType": "bool"
+      "ReturnResultType": "Bool"
     }
   },
   {
@@ -58,13 +59,13 @@
     "SkillSlots": [
       {
       "SlotName": "outputMessage",
-      "SlotType": "string",
+      "SlotType": "String",
       "SlotValues": []
       }
 	],
     "ReturnResult": {
       "ReturnResultName": "isOK",
-      "ReturnResultType": "bool"
+      "ReturnResultType": "Bool"
     }
   },
   {
@@ -74,13 +75,13 @@
     "SkillSlots": [
       {
       "SlotName": "inputContent",
-      "SlotType": "string",
+      "SlotType": "String",
       "SlotValues": []
       }
 	],
     "ReturnResult": {
       "ReturnResultName": "returnMessage",
-      "ReturnResultType": "string"
+      "ReturnResultType": "String"
     }
   },
   {
@@ -90,13 +91,13 @@
     "SkillSlots": [
       {
       "SlotName": "inputText",
-      "SlotType": "string",
+      "SlotType": "String",
       "SlotValues": []
       }
 	],
     "ReturnResult": {
       "ReturnResultName": "isOK",
-      "ReturnResultType": "bool"
+      "ReturnResultType": "Bool"
     }
   }
   ],
