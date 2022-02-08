@@ -82,31 +82,26 @@ For the synchronisation between the ARTI Rpi and the Notebook:
 - Configuire the NTP Client (ARTI Rpi)
 - sudo nano /etc/chrony/chrony.conf
 - Add the lines: server 192.168.5.5 minpoll 0 maxpoll 5 maxdelay .05
-
-Reboot both machines
-Verify the synchronization on the client with: chronyc tracking (should show the IP of the notebook and show its synchronized).
-Synchronization between the OS-Lidar and the Notebook. The USB-C Ethernet Card of the new notebook (no built in ethernet) is not capable of Hardware Timestamps. A possible solution would be to set the ARTI Rasberry PI as a time server. However, we used a much quicker but dirty solution: Overwrite the timestamp of the ouster ros node with the system time of the notebook. For sull docu of steps see: https://secure.salzburgresearch.at/wiki/pages/viewpage.action?pageId=63804455
+- Reboot both machines
+- Verify the synchronization on the client with: chronyc tracking (should show the IP of the notebook and show its synchronized).
 
 
 ## Map Making and Localization (SLAM) with Google Cartographer:
-Important! Cartographer is not buildable now. First, the github repo states "build failed" for a long time. Second ROS Kinetic is not supported anymore by Cartographer, since its EOL. I tried to create a own rosinstall file (see arti_ws/src/arti_navigation/scripts/install cartographer.sh) and replaced the "version master" with two older commits which did not fail building at the CI pipeline of cartographer, but that also doesnt work.
+Important! Cartographer is not buildable now. First, the github repo states "build failed" for a long time. Second ROS Kinetic is not supported anymore by Cartographer, since its EOL. I tried to create a own rosinstall file (see arti_ws/src/arti_navigation/scripts/install cartographer.sh) and replaced the "version master" with two older commits which did not fail building at the CI pipeline of cartographer, but that also doesnt work. Only solution until now: Copy the cartographer_ws from the old notebook, delete the build_isolated and install_isolated folders and then run catkin_make_build --install --ninja only (see arti_ws/src/arti_navigation/scripts/install cartographer.sh). A backup of the cartographer_ws is located at my backup drive. (and on the new and old ARTI Notebook)
 
-Only solution until now: Copy the cartographer_ws from the old notebook, delete the build_isolated and install_isolated folders and then run catkin_make_build --install --ninja only (see arti_ws/src/arti_navigation/scripts/install cartographer.sh). A backup of the cartographer_ws is located at my backup drive. (and on the new and old ARTI Notebook)
-
-GitHub:
+see GitHub:
 https://github.com/nerovalerius/arti_navigation
 
 
 ## Prerequisites
-Install google cartographer with rosrun arti_navigation install_cartographer.sh - this This installs as described "here"
-Use rosrun arti_navigation configure_terminals.sh to add the necessary lines to bashrc which source the cartographer_ws and the arti_ws
-Start the LIDAR with an visualization
-Connect the computer to the ARTI Chasi Wi-Fi
-Open a Terminal and connect to the ARTI Robot (Rpi4) via ssh ubuntu@192.168.5.3 - password: ubuntu
-Start the ros nodes on the Robot with roslaunch arti_chasi_mark3 arti_chasi_mark3_upstart_with_teleop.launch
-Open a second Terminal and start the OS1 lidar and Rviz with the launch file in this repository roslaunch arti_navigation arti_with_os1.launch
-Switch on the Controller
-Start the map making process with google cartographer
-After the ros nodes on the robot and the os1_lidar with rviz is launched, start the cartograhper ROS node with roslaunch arti_navigation arti_cartographer.launch
-Miscellaneous
-Inside Rviz, the LIDAR data can be visualized with Add → By Topic → PointCloud2. Also the color scheme of the LIDAR data can be manipulated for easier interpretation.
+- Install google cartographer with rosrun arti_navigation install_cartographer.sh - this This installs as described "here"
+- Use rosrun arti_navigation configure_terminals.sh to add the necessary lines to bashrc which source the cartographer_ws and the arti_ws
+- Start the LIDAR with an visualization
+- Connect the computer to the ARTI Chasi Wi-Fi
+- Open a Terminal and connect to the ARTI Robot (Rpi4) via ssh ubuntu@192.168.5.3 - password: ubuntu
+- Start the ros nodes on the Robot with roslaunch arti_chasi_mark3 arti_chasi_mark3_upstart_with_teleop.launch
+- Open a second Terminal and start the OS1 lidar and Rviz with the launch file in this repository roslaunch arti_navigation arti_with_os1.launch
+- Switch on the Controller
+- Start the map making process with google cartographer
+- After the ros nodes on the robot and the os1_lidar with rviz is launched, start the cartograhper ROS node with roslaunch arti_navigation arti_cartographer.launch
+- Inside Rviz, the LIDAR data can be visualized with Add → By Topic → PointCloud2. Also the color scheme of the LIDAR data can be manipulated for easier interpretation.
