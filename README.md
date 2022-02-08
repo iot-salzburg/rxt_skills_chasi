@@ -35,13 +35,13 @@ Next we need to get some packages:
 - catkin make inside catkin_workspace
 
 
-##Simulation with a virtual Robot:
+## Simulation with a virtual Robot:
 - Connect Gamepad to PC via Cable
 - Start Rviz for visualization and Gazebo for simulation → roslaunch arti_chasi_gazebo gazebo_with_ouster_16.launch
 - Start the gamepad control node → roslaunch ackermann_drive_teleop ackermann_drive_joyop.launch
 
 
-##Network Configuration
+## Network Configuration
 For Wifi-Configuration see also: ARTI Herstellerinformation / Handbuch
 
 - SSID: "ARTI Chasi", Password: ARTIDefaultPW1!
@@ -52,7 +52,7 @@ For Wifi-Configuration see also: ARTI Herstellerinformation / Handbuch
 - Notebook IP:        192.168.5.5 
 
 
-##Running the LIDAR (on the notebook):
+## Running the LIDAR (on the notebook):
 Install
 ROS Workspace should already be created on the notebook
 Install the ouster-ros package into the workspace
@@ -67,7 +67,7 @@ For different configuration parameters see: Ouster GitHub
 Visualize the Data with rviz → rviz -d ~/arti_ws/src/ouster_example/ouster_ros/viz.rviz
 
 
-##Synchronize Time between Machines and LIDAR
+## Synchronize Time between Machines and LIDAR
 This is necessary in order for the SLAM Algorithms to work properly.
 
 For the synchronisation between the ARTI Rpi and the Notebook:
@@ -86,7 +86,7 @@ Verify the synchronization on the client with: chronyc tracking (should show the
 Synchronization between the OS-Lidar and the Notebook. The USB-C Ethernet Card of the new notebook (no built in ethernet) is not capable of Hardware Timestamps. A possible solution would be to set the ARTI Rasberry PI as a time server. However, we used a much quicker but dirty solution: Overwrite the timestamp of the ouster ros node with the system time of the notebook. For sull docu of steps see: https://secure.salzburgresearch.at/wiki/pages/viewpage.action?pageId=63804455
 
 
-##Map Making and Localization (SLAM) with Google Cartographer:
+## Map Making and Localization (SLAM) with Google Cartographer:
 Important! Cartographer is not buildable now. First, the github repo states "build failed" for a long time. Second ROS Kinetic is not supported anymore by Cartographer, since its EOL. I tried to create a own rosinstall file (see arti_ws/src/arti_navigation/scripts/install cartographer.sh) and replaced the "version master" with two older commits which did not fail building at the CI pipeline of cartographer, but that also doesnt work.
 
 Only solution until now: Copy the cartographer_ws from the old notebook, delete the build_isolated and install_isolated folders and then run catkin_make_build --install --ninja only (see arti_ws/src/arti_navigation/scripts/install cartographer.sh). A backup of the cartographer_ws is located at my backup drive. (and on the new and old ARTI Notebook)
@@ -95,7 +95,7 @@ GitHub:
 https://github.com/nerovalerius/arti_navigation
 
 
-##Prerequisites
+## Prerequisites
 Install google cartographer with rosrun arti_navigation install_cartographer.sh - this This installs as described "here"
 Use rosrun arti_navigation configure_terminals.sh to add the necessary lines to bashrc which source the cartographer_ws and the arti_ws
 Start the LIDAR with an visualization
