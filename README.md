@@ -2,31 +2,28 @@
 Implementation of ROBxTASK skills for ARTI Chasi robot as ROS Action Server
 
 ## Start and drive with the robot
-Long press the left Button on the ARTI Robot to switch it on
-Connect the computer to the ARTI Chasi Wi-Fi
-Open a Terminal and connect to the ARTI Robot (Rpi4) via ssh ubuntu@192.168.5.3 - password: ubuntu
-Start the ros nodes on the Robot with roslaunch arti_chasi_mark3 arti_chasi_mark3_upstart_with_teleop.launch
-Open a second Terminal and start the OS1 lidar and Rviz with the launch file in this repository roslaunch arti_navigation arti_with_os1.launch
-Switch on the Xbox 360 Controller
-Drive - but be careful - the robot reacts very fast and has a high acceleration
-Joystick Control
-LB                     →  Deadman switch - has to be pressed all the time
-Left Joystick    →  Drive
+- Long press the left Button on the ARTI Robot to switch it on
+- Connect the computer to the ARTI Chasi Wi-Fi
+- Open a Terminal and connect to the ARTI Robot (Rpi4) via ssh ubuntu@192.168.5.3 - password: ubuntu
+- Start the ros nodes on the Robot with roslaunch arti_chasi_mark3 arti_chasi_mark3_upstart_with_teleop.launch
+- Open a second Terminal and start the OS1 lidar and Rviz with the launch file in this repository roslaunch arti_navigation arti_with_os1.launch
+- Switch on the Xbox 360 Controller
+- Driv, but be careful, the robot reacts very fast and has a high acceleration
+- Joystick Control
+LB  →  Deadman switch - has to be pressed all the time
+Left Joystick  →  Drive
 Right Joystick →  Steer
 
 
 ## Initial Setup - Creating a ROS Workspace
-Install Ubuntu 16.04
-Install ROS Kinetic (install ros-kinetic-desktop-full)
-Install Gazebo 7.15+
+- Install Ubuntu 16.04
+- Install ROS Kinetic (install ros-kinetic-desktop-full)
+- Install Gazebo 7.15+
 
-sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-
-wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
-
-sudo apt-get update
-
-sudo apt upgrade
+-- sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+-- wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+-- sudo apt-get update
+-- sudo apt upgrade
 
 Create catkin workspace
 Follow Instructions on https://github.com/ARTI-Robots/chasi
