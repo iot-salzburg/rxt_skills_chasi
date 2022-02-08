@@ -37,9 +37,9 @@ sudo apt install ros-kinetic-gazebo-ros-control
 sudo apt install ros-kinetic-effort-controllers
 sudo apt install ros-kinetic-joint-state-controller
 
-# (recommended) install the complete ros_control package including joint controllers (https://wiki.ros.org/ros_control)
+(recommended) install the complete ros_control package including joint controllers (https://wiki.ros.org/ros_control)
 sudo apt install ros-kinetic-ros-control ros-kinetic-ros-controllers
-# (recommended) install moveit for motion planning (https://moveit.ros.org/install/)
+(recommended) install moveit for motion planning (https://moveit.ros.org/install/)
 sudo apt install ros-kinetic-moveit
 
 catkin make inside catkin_workspace
@@ -85,9 +85,9 @@ apt-get install chrony
 Configure the NTP Server (Notebook)
 sudo nano /etc/chrony/chrony.conf
 Add the lines:
-# make it serve time even if it is not synced (as it can't reach out)
+make it serve time even if it is not synced (as it can't reach out)
 local stratum 8
-# allow the IP range of your peer to connect
+allow the IP range of your peer to connect
 allow 192.168.5
 Configuire the NTP Client (ARTI Rpi)
 sudo nano /etc/chrony/chrony.conf
