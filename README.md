@@ -54,18 +54,19 @@ For Wifi-Configuration see also: ARTI Herstellerinformation / Handbuch
 
 
 ## Running the LIDAR (on the notebook):
-Install
-ROS Workspace should already be created on the notebook
-Install the ouster-ros package into the workspace
-cd ~/arti_ws/src
-git clone https://github.com/ouster-lidar/ouster_example.git
-export CMAKE_PREFIX_PATH=~/arti_ws/src/ouster_example
-cd ~/arti_ws
-catkin_make -DCMAKE_BUILD_TYPE=Release
-Run
-Start the Ouster LIDAR via ROS → roslaunch ~/arti_ws/src/ouster_example/ouster_ros/os1.launch os1_hostname:=192.168.5.4 os1_udp_dest:=192.168.5.5 lidar_mode:=1024x20 viz:=false
-For different configuration parameters see: Ouster GitHub
-Visualize the Data with rviz → rviz -d ~/arti_ws/src/ouster_example/ouster_ros/viz.rviz
+For install:
+- ROS Workspace should already be created on the notebook
+- Install the ouster-ros package into the workspace
+- cd ~/arti_ws/src
+- git clone https://github.com/ouster-lidar/ouster_example.git
+- export CMAKE_PREFIX_PATH=~/arti_ws/src/ouster_example
+- cd ~/arti_ws
+- catkin_make -DCMAKE_BUILD_TYPE=Release
+
+To Run:
+- Start the Ouster LIDAR via ROS → roslaunch ~/arti_ws/src/ouster_example/ouster_ros/os1.launch os1_hostname:=192.168.5.4 os1_udp_dest:=192.168.5.5 lidar_mode:=1024x20 viz:=false
+- For different configuration parameters see: Ouster GitHub
+- Visualize the Data with rviz → rviz -d ~/arti_ws/src/ouster_example/ouster_ros/viz.rviz
 
 
 ## Synchronize Time between Machines and LIDAR
