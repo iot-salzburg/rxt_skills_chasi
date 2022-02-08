@@ -11,7 +11,7 @@ Implementation of ROBxTASK skills for ARTI Chasi robot as ROS Action Server
 - Drive!, but be careful, the robot reacts very fast and has a high acceleration
 
 Joystick Control on XBOX Controller:
-- LB  →  Deadman switch - has to be pressed all the time
+- LB  →  Deadman switch (has to be pressed all the time for control)
 - Left Joystick  →  Drive
 - Right Joystick →  Steer
 
