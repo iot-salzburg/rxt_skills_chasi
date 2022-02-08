@@ -34,10 +34,12 @@ Next we need to get some packages:
 - sudo apt install ros-kinetic-moveit
 - catkin make inside catkin_workspace
 
+
 ##Simulation with a virtual Robot:
 - Connect Gamepad to PC via Cable
 - Start Rviz for visualization and Gazebo for simulation → roslaunch arti_chasi_gazebo gazebo_with_ouster_16.launch
 - Start the gamepad control node → roslaunch ackermann_drive_teleop ackermann_drive_joyop.launch
+
 
 ##Network Configuration
 For Wifi-Configuration see also: ARTI Herstellerinformation / Handbuch
@@ -48,6 +50,7 @@ For Wifi-Configuration see also: ARTI Herstellerinformation / Handbuch
 - Raspberry PI IP:    192.168.5.3
 - Ouster LIDAR IP:   192.168.5.4
 - Notebook IP:        192.168.5.5 
+
 
 ##Running the LIDAR (on the notebook):
 Install
@@ -63,94 +66,34 @@ Start the Ouster LIDAR via ROS → roslaunch ~/arti_ws/src/ouster_example/ouster
 For different configuration parameters see: Ouster GitHub
 Visualize the Data with rviz → rviz -d ~/arti_ws/src/ouster_example/ouster_ros/viz.rviz
 
+
 ##Synchronize Time between Machines and LIDAR
 This is necessary in order for the SLAM Algorithms to work properly.
 
-Synchronisation between the ARTI Rpi and the Notebook
-Install chrony on both machines
-apt-get install chrony
-Configure the NTP Server (Notebook)
-sudo nano /etc/chrony/chrony.conf
-Add the lines:
-make it serve time even if it is not synced (as it can't reach out)
-local stratum 8
-allow the IP range of your peer to connect
-allow 192.168.5
-Configuire the NTP Client (ARTI Rpi)
-sudo nano /etc/chrony/chrony.conf
-Add the lines:
-server 192.168.5.5 minpoll 0 maxpoll 5 maxdelay .05
-
+For the synchronisation between the ARTI Rpi and the Notebook:
+- Install chrony on both machines
+- apt-get install chrony
+- Configure the NTP Server (Notebook)
+- sudo nano /etc/chrony/chrony.conf
+- Add line: "local stratum 8"
+- Add line: "allow 192.168.5"
+- Configuire the NTP Client (ARTI Rpi)
+- sudo nano /etc/chrony/chrony.conf
+- Add the lines: server 192.168.5.5 minpoll 0 maxpoll 5 maxdelay .05
 
 Reboot both machines
-Verify the synchronization on the client with:
-chronyc tracking - should show the IP of the notebook and show its synchronized
-Synchronization between the OS-Lidar and the Notebook
-Important!
-The USB-C Ethernet Card of the new notebook (no built in ethernet) is not capable of Hardware Timestamps. A possible solution would be to set the ARTI Rasberry PI as a time server.
-
-However, we used a much quicker but dirty solution: Overwrite the timestamp of the ouster ros node with the system time of the notebook.
-
-Steps:
-Edit this file inside the ouster ros package: GitHub Link to Ouster ROS
-Replace msg.header.stamp.fromNSec(timestamp.count()); with msg.header.stamp = ros::Time::now();
-Rebuild the arti_ws ROS Workspace with catkin_make -DCMAKE_BUILD_TYPE=Release
-Important!
-The set_config_param timestamp_mode TIME_FROM_PTP_1588 is now automatically set via the arti_with_os1.launch file.
-
-Furthermore there were massive Issues with the Gmapping package for creating a Map of the Environment. 
-
-In arti_with_os1.launch, i added 3 static transform publishers for the os1_lidar.
-
-It seems that the tf2 package for transforms in ROS has a bug (at least at ROS kinetic): The timestamp was 0 for each transformation and gmapping cannot handle that. 
-
-That's also why the Lidar and Rpi have to be time synched to the notebook. In the arti os1 launch file are now 3 tf1 transform publishers with a polling rate of 100ms.
-
-Connect to the OS1-Lidar via netcat
-
-nc 192.168.5.4 7501
-
-Get Sensor info and Timestamp
-
-get_sensor_info
-
-get_time_info 192.168.5.4 7501
-
-Set the OS-1 Lidar Timesource to a PTP Master (IEEE 1588)
-
-set_config_param timestamp_mode TIME_FROM_PTP_1588
-
-Reinitialize the Lidar to let him change the settings
-
-get_time_info 192.168.5.4 7501
-
-reinitialize
-
-Save the config
-
-write_config_txt
-
-Set up the PTP Master as told in [Ouster Software User Guide] Chapter 9
-get_time_info 192.168.5.4 7501
-
-Chapter 5 describes the PTP Setting of the OS1 
+Verify the synchronization on the client with: chronyc tracking (should show the IP of the notebook and show its synchronized).
+Synchronization between the OS-Lidar and the Notebook. The USB-C Ethernet Card of the new notebook (no built in ethernet) is not capable of Hardware Timestamps. A possible solution would be to set the ARTI Rasberry PI as a time server. However, we used a much quicker but dirty solution: Overwrite the timestamp of the ouster ros node with the system time of the notebook. For sull docu of steps see: https://secure.salzburgresearch.at/wiki/pages/viewpage.action?pageId=63804455
 
 
+##Map Making and Localization (SLAM) with Google Cartographer:
+Important! Cartographer is not buildable now. First, the github repo states "build failed" for a long time. Second ROS Kinetic is not supported anymore by Cartographer, since its EOL. I tried to create a own rosinstall file (see arti_ws/src/arti_navigation/scripts/install cartographer.sh) and replaced the "version master" with two older commits which did not fail building at the CI pipeline of cartographer, but that also doesnt work.
 
-Map Making and Localization (SLAM) with Google Cartographer
-Important!
-Cartographer is not buildable now. First, the github repo states "build failed" for a long time. Second ROS Kinetic is not supported anymore by Cartographer, since its EOL.
-
-I tried to create a own rosinstall file (see arti_ws/src/arti_navigation/scripts/install cartographer.sh) and replaced the "version master" with two older commits which did not fail building at the CI pipeline of cartographer, but that also doesnt work.
-
-Only solution until now: Copy the cartographer_ws from the old notebook, delete the build_isolated and install_isolated folders and then run catkin_make_build --install --ninja only (see arti_ws/src/arti_navigation/scripts/install cartographer.sh).
-
-A backup of the cartographer_ws is located at my backup drive. (and on the new and old ARTI Notebook)
-
-
+Only solution until now: Copy the cartographer_ws from the old notebook, delete the build_isolated and install_isolated folders and then run catkin_make_build --install --ninja only (see arti_ws/src/arti_navigation/scripts/install cartographer.sh). A backup of the cartographer_ws is located at my backup drive. (and on the new and old ARTI Notebook)
 
 GitHub:
 https://github.com/nerovalerius/arti_navigation
+
 
 ##Prerequisites
 Install google cartographer with rosrun arti_navigation install_cartographer.sh - this This installs as described "here"
