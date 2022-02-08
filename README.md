@@ -19,45 +19,35 @@ Right Joystick →  Steer
 - Install Ubuntu 16.04
 - Install ROS Kinetic (install ros-kinetic-desktop-full)
 - Install Gazebo 7.15+
+- Create catkin workspace
+- Follow Instructions on https://github.com/ARTI-Robots/chasi
+- Clone https://github.com/ARTI-Robots/ackermann-drive-teleop into catkin_workspace/src
 
--- sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
--- wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
--- sudo apt-get update
--- sudo apt upgrade
-
-Create catkin workspace
-Follow Instructions on https://github.com/ARTI-Robots/chasi
-clone https://github.com/ARTI-Robots/ackermann-drive-teleop into catkin_workspace/src
-
-sudo apt-get install ros-kinetic-controller-manager
-sudo apt install ros-kinetic-gazebo-ros-control
-sudo apt install ros-kinetic-effort-controllers
-sudo apt install ros-kinetic-joint-state-controller
-
-(recommended) install the complete ros_control package including joint controllers (https://wiki.ros.org/ros_control)
-sudo apt install ros-kinetic-ros-control ros-kinetic-ros-controllers
-(recommended) install moveit for motion planning (https://moveit.ros.org/install/)
-sudo apt install ros-kinetic-moveit
-
-catkin make inside catkin_workspace
+Next we need to get some packages:
+- sudo apt-get install ros-kinetic-controller-manager
+- sudo apt install ros-kinetic-gazebo-ros-control
+- sudo apt install ros-kinetic-effort-controllers
+- sudo apt install ros-kinetic-joint-state-controller
+- (recommended) install the complete ros_control package including joint controllers (https://wiki.ros.org/ros_control)
+- sudo apt install ros-kinetic-ros-control ros-kinetic-ros-controllers
+- (recommended) install moveit for motion planning (https://moveit.ros.org/install/)
+- sudo apt install ros-kinetic-moveit
+- catkin make inside catkin_workspace
 
 ##Simulation with a virtual Robot:
-Connect Gamepad to PC via Cable
-Start Rviz for visualization and Gazebo for simulation → roslaunch arti_chasi_gazebo gazebo_with_ouster_16.launch
-Start the gamepad control node → roslaunch ackermann_drive_teleop ackermann_drive_joyop.launch
+- Connect Gamepad to PC via Cable
+- Start Rviz for visualization and Gazebo for simulation → roslaunch arti_chasi_gazebo gazebo_with_ouster_16.launch
+- Start the gamepad control node → roslaunch ackermann_drive_teleop ackermann_drive_joyop.launch
 
 ##Network Configuration
-Wifi-Configuration
-see also: ARTI Herstellerinformation / Handbuch
+For Wifi-Configuration see also: ARTI Herstellerinformation / Handbuch
 
-SSID: "ARTI Chasi", Password: ARTIDefaultPW1!
-Configuration: https://192.168.5.1/ (User & Password "ubnt")
-IP-Configuration
-EdgeMAX Router (DHCP Server): 192.168.5.1
-Raspberry PI:    192.168.5.3
-Ouster LIDAR:   192.168.5.4
-Notebook:        192.168.5.5 
-
+- SSID: "ARTI Chasi", Password: ARTIDefaultPW1!
+- Configuration: https://192.168.5.1/ (User & Password "ubnt")
+- EdgeMAX Router IP (DHCP Server): 192.168.5.1
+- Raspberry PI IP:    192.168.5.3
+- Ouster LIDAR IP:   192.168.5.4
+- Notebook IP:        192.168.5.5 
 
 ##Running the LIDAR (on the notebook):
 Install
