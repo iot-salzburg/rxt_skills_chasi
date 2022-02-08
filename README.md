@@ -8,7 +8,7 @@ Implementation of ROBxTASK skills for ARTI Chasi robot as ROS Action Server
 - Start the ros nodes on the Robot with roslaunch arti_chasi_mark3 arti_chasi_mark3_upstart_with_teleop.launch
 - Open a second Terminal and start the OS1 lidar and Rviz with the launch file in this repository roslaunch arti_navigation arti_with_os1.launch
 - Switch on the Xbox 360 Controller
-- Driv, but be careful, the robot reacts very fast and has a high acceleration
+- Drive!, but be careful, the robot reacts very fast and has a high acceleration
 - Joystick Control
 LB  →  Deadman switch - has to be pressed all the time
 Left Joystick  →  Drive
