@@ -368,12 +368,12 @@ class SetData(object):
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 class SendMessage(object):
     
-    _feedback = rxt_skills_panda.msg.SendMessageFeedback() #create feedback message
-    _result = rxt_skills_panda.msg.SendMessageResult() #create result message
+    _feedback = rxt_skills_chasi.msg.SendMessageFeedback() #create feedback message
+    _result = rxt_skills_chasi.msg.SendMessageResult() #create result message
 
     def __init__(self, name):
         self._action_name = name
-        self._as = actionlib.SimpleActionServer(self._action_name, rxt_skills_panda.msg.SendMessageAction, execute_cb=self.execute_cb, auto_start = False)
+        self._as = actionlib.SimpleActionServer(self._action_name, rxt_skills_chasi.msg.SendMessageAction, execute_cb=self.execute_cb, auto_start = False)
         self._as.start()
       
     def execute_cb(self, goal):
@@ -400,12 +400,12 @@ class SendMessage(object):
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 class OnMessageReceive(object):
     
-    _feedback = rxt_skills_panda.msg.OnMessageReceiveFeedback() #create feedback message
-    _result = rxt_skills_panda.msg.OnMessageReceiveResult() #create result message
+    _feedback = rxt_skills_chasi.msg.OnMessageReceiveFeedback() #create feedback message
+    _result = rxt_skills_chasi.msg.OnMessageReceiveResult() #create result message
 
     def __init__(self, name):
         self._action_name = name
-        self._as = actionlib.SimpleActionServer(self._action_name, rxt_skills_panda.msg.OnMessageReceiveAction, execute_cb=self.execute_cb, auto_start = False)
+        self._as = actionlib.SimpleActionServer(self._action_name, rxt_skills_chasi.msg.OnMessageReceiveAction, execute_cb=self.execute_cb, auto_start = False)
         self._as.start()
       
     def execute_cb(self, goal):
