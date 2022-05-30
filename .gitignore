@@ -5,3 +5,7 @@
 *.log
 /logging
 !/logging/logging.conf
+
+
+#ignore development env for visual code
+.vscode

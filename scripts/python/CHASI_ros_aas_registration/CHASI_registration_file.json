@@ -39,12 +39,12 @@
   {
     "SkillName": "MoveToLocation",
     "SkillVersion": "V01",
-    "SkillDescription": "Move the mobile robot to a pre-defined position: (1) parking slot, (2) patient room.",
+    "SkillDescription": "Move the mobile robot to a pre-defined position: (1) parking slot, (2) patient room, (3) camera turn - Turns 90 degree left.",
     "SkillSlots": [
       {
       "SlotName": "location",
       "SlotType": "Enum",
-      "SlotValues": ["parking slot", "patient room"]
+      "SlotValues": ["parking slot", "patient room", "camera turn"]
       }
 	],
     "ReturnResult": {

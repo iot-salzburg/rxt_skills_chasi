@@ -46,7 +46,7 @@ class Position_Listener(object):
 # helper function: move to location
 #------------------------------------------------------------------------------------------------------------------------------------------------------------ 
 def chasi_moveTo(position):
- 
+    
     # Tutorials:
     # https://www.oreilly.com/library/view/ros-programming-building/9781788627436/192de5c9-e5bd-40b3-a75a-2990bdfa7caf.xhtml
     # https://answers.ros.org/question/306582/unable-to-publish-posestamped-message/
@@ -68,11 +68,16 @@ def chasi_moveTo(position):
 
 
     # set command to move to position
-    artiparking_position = "position: { x: 2.06074738503, y: 2.98369121552 }"
-    artiparking_orientation = "orientation: { x: 0, y: 0, z: 0.222298112697, w: 0.974978742892 }"
+    if position == "patient room":
+        artiparking_position = "position: { x: 5.56647111851, y: 4.10280822836, z: -0.007645 }"
+        artiparking_orientation = "orientation: { x: 0, y: 0, z: -0.196196297556, w: 0.9805646398 }"
 
-    command = "rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{ header: { frame_id:  \"/map\"}, pose: { " + artiparking_position + ", " + artiparking_orientation + " } }'"
-    os.system(command)
+        command = "rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{ header: { frame_id:  \"/map\"}, pose: { " + artiparking_position + ", " + artiparking_orientation + " } }'"
+        os.system(command)
+
+    elif position == "camera turn":
+        command = "rosrun arti_docking sub_data.sh"
+        os.system(command)
 
     # listen for motion / get position
     #rospy.loginfo('Trying to listen from topic: /move_base_simple/goal')
