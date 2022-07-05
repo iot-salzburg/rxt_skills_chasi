@@ -10,6 +10,9 @@ from geometry_msgs.msg import PoseStamped
 # self registration
 from self_registration import *
 
+# Global variable
+sent_message = None
+received_message = None
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # class for listening position
@@ -51,43 +54,31 @@ def chasi_moveTo(position):
     # https://www.oreilly.com/library/view/ros-programming-building/9781788627436/192de5c9-e5bd-40b3-a75a-2990bdfa7caf.xhtml
     # https://answers.ros.org/question/306582/unable-to-publish-posestamped-message/
 
-    #goal_publisher = rospy.Publisher("move_base_simple/goal", PoseStamped, queue_size=5)
-    #goal = PoseStamped()
-    #goal.header.seq = 1
-    #goal.header.stamp = rospy.Time.now()
-    #goal.header.frame_id = "map"
-    #goal.pose.position.x = 1.0
-    #goal.pose.position.y = 2.0
-    #goal.pose.position.z = 0.0
-    #goal.pose.orientation.x = 0.0
-    #goal.pose.orientation.y = 0.0
-    #goal.pose.orientation.z = 0.0
-    #goal.pose.orientation.w = 1.0
-    #time.sleep(5)
-    #goal_publisher.publish(goal)
 
 
     # set command to move to position
     if position == "patient room":
-        artiparking_position = "position: { x: 5.56647111851, y: 4.10280822836, z: -0.007645 }"
-        artiparking_orientation = "orientation: { x: 0, y: 0, z: -0.196196297556, w: 0.9805646398 }"
+        artiparking_position = "position: { x: 7.41178993832, y: 3.43726404144, z: -0.007645 }"
+        artiparking_orientation = "orientation: { x: 0, y: 0, z: -0.223993065432, w: 0.974590738022 }"
 
         command = "rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{ header: { frame_id:  \"/map\"}, pose: { " + artiparking_position + ", " + artiparking_orientation + " } }'"
         os.system(command)
 
     elif position == "camera turn":
-        command = "rosrun arti_docking sub_data.sh"
+        command = "rosrun arti_docking navigate.sh"
         os.system(command)
 
-    # listen for motion / get position
-    #rospy.loginfo('Trying to listen from topic: /move_base_simple/goal')
-    #list = Position_Listener()
+    elif position == "parking slot":
+        command = "rosrun arti_docking arti_parking.sh"
+        os.system(command)
 
-    #while list.flag: # sleep to block ActionEnd until we received "Stopped"-message
-    #    rospy.sleep(1) 
+    else:
+        rospy.loginfo('Found invalid input slot argument for skill MoveToLocation')
+
+
 
     return True
-    
+
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # helper function: listen for input
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -180,23 +171,6 @@ def chasi_read_setting(setting):
 
     return b'NO DATA FOUND'
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-# helper function: send message
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_send_message(value):
-    
-    # TODO - NOT YET IMPLEMENTED
-    time.sleep(2.0)
-    return True
-
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-# helper function: receive message
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-def chasi_receive_message(value):
-    
-    # TODO - NOT YET IMPLEMENTED
-    time.sleep(2.0)
-    return True
 
 			
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -381,6 +355,9 @@ class SetData(object):
         # start executing the action
         #success = fibonacci_example(self, success)
         success = chasi_write_setting('robotName', goal.outputData)
+        while success != True:
+            rospy.sleep(0.1)
+            pass
           
         if success:
             self._result.isOK = success
@@ -401,27 +378,27 @@ class SendMessage(object):
         self._as.start()
       
     def execute_cb(self, goal):
-        
-        # append the seeds to give user feedback
+        global sent_message
+
+        # start executing the action
+        sent_message = str(goal.messageContent)
+
+         # append the seeds to give user feedback
         self._feedback.sequence = []
         self._feedback.sequence.append(0)
         self._feedback.sequence.append(1)
         
         rospy.loginfo('%s: Executing, creating SendMessage sequence with outputData %s with seeds %i, %i' % (self._action_name, goal.messageContent, self._feedback.sequence[0], self._feedback.sequence[1]))
-        
-        # start executing the action
-        success = chasi_send_message(goal.messageContent)
-          
-        if success:
-            self._result.isOK = success
-            rospy.loginfo('%s: Succeeded' % self._action_name)
-            self._as.set_succeeded(self._result)
+
+        self._result.isOK = True
+        rospy.loginfo('%s: Succeeded' % self._action_name)
+        self._as.set_succeeded(self._result)
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 # OnMessageReceive
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 class OnMessageReceive(object):
-    
+   
     _feedback = rxt_skills_chasi.msg.OnMessageReceiveFeedback() #create feedback message
     _result = rxt_skills_chasi.msg.OnMessageReceiveResult() #create result message
 
@@ -430,22 +407,33 @@ class OnMessageReceive(object):
         self._as = actionlib.SimpleActionServer(self._action_name, rxt_skills_chasi.msg.OnMessageReceiveAction, execute_cb=self.execute_cb, auto_start = False)
         self._as.start()
       
+      
     def execute_cb(self, goal):
-        
+        global received_message, sent_message
+        # start executing the action
+        received_message = str(goal.messageContent)
+        if received_message == "chasi":
+            while sent_message != "chasi":
+                rospy.sleep(0.1)
+                print("arti while",sent_message)
+                if sent_message == "chasi":
+                    break
+                if rospy.is_shutdown() == True:
+                    break
+        print("exited successfully")
+        rospy.sleep(0.2)
+
         # append the seeds to give user feedback
         self._feedback.sequence = []
         self._feedback.sequence.append(0)
         self._feedback.sequence.append(1)
         
         rospy.loginfo('%s: Executing, creating OnMessageReceive sequence with outputData %s with seeds %i, %i' % (self._action_name, goal.messageContent, self._feedback.sequence[0], self._feedback.sequence[1]))
-        
-        # start executing the action
-        success = chasi_receive_message(goal.messageContent)
-          
-        if success:
-            self._result.isOK = success
-            rospy.loginfo('%s: Succeeded' % self._action_name)
-            self._as.set_succeeded(self._result)
+
+
+        self._result.isOK = True
+        rospy.loginfo('%s: Succeeded' % self._action_name)
+        self._as.set_succeeded(self._result)
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------

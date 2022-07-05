@@ -7,9 +7,6 @@ gnome-terminal -- ssh ubuntu@192.168.5.3 "ROS_IP=192.168.5.3 ROS_MASTER_URI=http
 sleep 20
 
 
-# start the rviz tool with loaded map and properties
-gnome-terminal -- sh -c "ROS_MASTER_URI=http://192.168.48.41:11311 roslaunch arti_navigation move_base.launch"
-sleep 5
 
 
 # start the ROS action server in python using rospy
