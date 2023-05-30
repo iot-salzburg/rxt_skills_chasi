@@ -412,14 +412,16 @@ class OnMessageReceive(object):
         global received_message, sent_message
         # start executing the action
         received_message = str(goal.messageContent)
-        if received_message == "chasi":
-            while sent_message != "chasi":
-                rospy.sleep(0.1)
-                print("arti while",sent_message)
-                if sent_message == "chasi":
-                    break
-                if rospy.is_shutdown() == True:
-                    break
+        
+        while sent_message != received_message:
+            rospy.sleep(0.1)
+            print("arti while",sent_message)
+            if sent_message == received_message:
+                break
+            if rospy.is_shutdown() == True:
+                break
+            else:
+                pass
         print("exited successfully")
         rospy.sleep(0.2)
 

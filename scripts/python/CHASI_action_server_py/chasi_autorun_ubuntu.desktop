@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=v0.8.5
+Name=chasi_autorun_ubuntu
+Exec=bash -c "source /opt/ros/kinetic/setup.bash && source ~/ros_workspace/devel/setup.bash && rosrun rxt_skills_chasi chasi_action_client.py; sleep 50000"
+Terminal=true
+Type=Application
+StartupNotify=true
+icon=/usr/local/share/icons/ros.png
